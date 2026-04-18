@@ -1,0 +1,1245 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chakra Balance Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --sacred-purple: #6a0dad;
+            --energy-blue: #1e90ff;
+            --healing-green: #228b22;
+            --sun-yellow: #ffd700;
+            --spirit-orange: #ff8c00;
+            --heart-pink: #ff69b4;
+            --divine-white: #f8f8ff;
+            --dark-charcoal: #2c2c2c;
+            --light-gray: #e0e0e0;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(106, 13, 173, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(30, 144, 255, 0.05) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(106, 13, 173, 0.1);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sacred-purple), var(--energy-blue), var(--healing-green), var(--sun-yellow), var(--spirit-orange), var(--heart-pink));
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--sacred-purple), var(--energy-blue), var(--healing-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+        
+        .chakra-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .chakra-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(106, 13, 173, 0.1);
+            transform: translateY(0);
+        }
+        
+        .chakra-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .chakra-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+        
+        .chakra-1 { background: linear-gradient(135deg, #6a0dad, #8a2be2); }
+        .chakra-2 { background: linear-gradient(135deg, #1e90ff, #00bfff); }
+        .chakra-3 { background: linear-gradient(135deg, #228b22, #32cd32); }
+        .chakra-4 { background: linear-gradient(135deg, #ffd700, #ffa500); }
+        .chakra-5 { background: linear-gradient(135deg, #ff8c00, #ff4500); }
+        .chakra-6 { background: linear-gradient(135deg, #ff69b4, #ff1493); }
+        .chakra-7 { background: linear-gradient(135deg, #d8bfd8, #9370db); }
+        
+        .chakra-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chakra-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .chakra-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid rgba(106, 13, 173, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quiz-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sacred-purple), var(--energy-blue), var(--healing-green), var(--sun-yellow), var(--spirit-orange), var(--heart-pink));
+        }
+        
+        .question-container {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        .question-container.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-number {
+            font-size: 1.1rem;
+            color: var(--sacred-purple);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .question-text {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option {
+            padding: 18px 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option.selected {
+            background: linear-gradient(135deg, var(--sacred-purple), var(--energy-blue));
+            color: white;
+            border-color: var(--sacred-purple);
+        }
+        
+        .option.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-prev {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .btn-prev:hover {
+            background: #d0d0d0;
+            transform: translateY(-3px);
+        }
+        
+        .btn-next {
+            background: linear-gradient(135deg, var(--sacred-purple), var(--energy-blue));
+            color: white;
+        }
+        
+        .btn-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.4);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, var(--healing-green), var(--sun-yellow));
+            color: white;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.4);
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sacred-purple), var(--energy-blue), var(--healing-green), var(--sun-yellow), var(--spirit-orange), var(--heart-pink));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .results-container {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .results-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--sacred-purple);
+        }
+        
+        .balance-score {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--sacred-purple), var(--energy-blue), var(--healing-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .chakra-balance {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .chakra-balance-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(106, 13, 173, 0.1);
+        }
+        
+        .chakra-balance-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--sacred-purple);
+        }
+        
+        .chakra-balance-item .score {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .chakra-balance-item .status {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .balanced { background: rgba(34, 139, 34, 0.15); color: #228b22; }
+        .imbalanced { background: rgba(255, 140, 0, 0.15); color: #ff8c00; }
+        .blocked { background: rgba(220, 20, 60, 0.15); color: #dc143c; }
+        
+        .predictions {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid rgba(106, 13, 173, 0.1);
+        }
+        
+        .predictions h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--sacred-purple);
+            text-align: center;
+            position: relative;
+        }
+        
+        .predictions h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sacred-purple), var(--energy-blue));
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .prediction-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .prediction-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .prediction-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--sacred-purple);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .prediction-content {
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .analytics-container {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid rgba(106, 13, 173, 0.1);
+        }
+        
+        .analytics-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .analytics-header h2 {
+            font-size: 2rem;
+            color: var(--sacred-purple);
+        }
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .analytics-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(106, 13, 173, 0.1);
+        }
+        
+        .analytics-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--sacred-purple);
+            text-align: center;
+        }
+        
+        .chart-container {
+            height: 250px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(to top, var(--sacred-purple), var(--energy-blue));
+            border-radius: 5px 5px 0 0;
+            transition: height 1s ease;
+        }
+        
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        
+        .admin-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .admin-btn {
+            padding: 12px 25px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .admin-btn:hover {
+            background: var(--sacred-purple);
+            color: white;
+        }
+        
+        .admin-btn.active {
+            background: var(--sacred-purple);
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(106, 13, 173, 0.1);
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .chakra-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .balance-score {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-text {
+                font-size: 1.2rem;
+            }
+            
+            .chakra-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chakra-card {
+                padding: 20px 15px;
+            }
+            
+            .chakra-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-leaf"></i> Chakra Balance Analyzer</h1>
+            <p class="subtitle">Discover your energy balance and unlock your path to wellness through this comprehensive chakra assessment. Our scientifically-inspired approach helps you understand your energy centers and how they impact your life.</p>
+        </header>
+        
+        <div class="chakra-grid">
+            <div class="chakra-card chakra-1">
+                <div class="chakra-icon"><i class="fas fa-circle"></i></div>
+                <div class="chakra-name">Root Chakra</div>
+                <div class="chakra-description">Grounding, security, survival instincts</div>
+            </div>
+            <div class="chakra-card chakra-2">
+                <div class="chakra-icon"><i class="fas fa-circle"></i></div>
+                <div class="chakra-name">Sacral Chakra</div>
+                <div class="chakra-description">Creativity, sexuality, emotions</div>
+            </div>
+            <div class="chakra-card chakra-3">
+                <div class="chakra-icon"><i class="fas fa-circle"></i></div>
+                <div class="chakra-name">Solar Plexus</div>
+                <div class="chakra-description">Personal power, confidence, self-esteem</div>
+            </div>
+            <div class="chakra-card chakra-4">
+                <div class="chakra-icon"><i class="fas fa-circle"></i></div>
+                <div class="chakra-name">Heart Chakra</div>
+                <div class="chakra-description">Love, compassion, connection</div>
+            </div>
+            <div class="chakra-card chakra-5">
+                <div class="chakra-icon"><i class="fas fa-circle"></i></div>
+                <div class="chakra-name">Throat Chakra</div>
+                <div class="chakra-description">Communication, self-expression</div>
+            </div>
+            <div class="chakra-card chakra-6">
+                <div class="chakra-icon"><i class="fas fa-circle"></i></div>
+                <div class="chakra-name">Third Eye</div>
+                <div class="chakra-description">Intuition, insight, wisdom</div>
+            </div>
+            <div class="chakra-card chakra-7">
+                <div class="chakra-icon"><i class="fas fa-circle"></i></div>
+                <div class="chakra-name">Crown Chakra</div>
+                <div class="chakra-description">Spiritual connection, higher consciousness</div>
+            </div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="question-number" id="question-number">Question 1 of 20</div>
+            </div>
+            
+            <div class="question-container active" id="question-1">
+                <div class="question-text">How often do you feel grounded and secure in your daily life?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Rarely</div>
+                    <div class="option" data-value="2">Sometimes</div>
+                    <div class="option" data-value="3">Often</div>
+                    <div class="option" data-value="4">Always</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-2">
+                <div class="question-text">When you're stressed, do you tend to:</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel overwhelmed and unable to cope</div>
+                    <div class="option" data-value="2">Feel like you're losing control</div>
+                    <div class="option" data-value="3">Feel energized and focused</div>
+                    <div class="option" data-value="4">Feel calm and centered</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-3">
+                <div class="question-text">How would you describe your relationships with others?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Often feel disconnected or isolated</div>
+                    <div class="option" data-value="2">Feel like you're always giving more than you receive</div>
+                    <div class="option" data-value="3">Feel balanced and mutually supportive</div>
+                    <div class="option" data-value="4">Feel deeply connected and loving</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-4">
+                <div class="question-text">When expressing your thoughts and feelings, you:</div>
+                <div class="options">
+                    <div class="option" data-value="1">Often struggle to find the right words</div>
+                    <div class="option" data-value="2">Feel hesitant to speak up</div>
+                    <div class="option" data-value="3">Speak clearly and confidently</div>
+                    <div class="option" data-value="4">Express yourself freely and authentically</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-5">
+                <div class="question-text">How do you typically handle new ideas or changes in your life?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel anxious and uncertain</div>
+                    <div class="option" data-value="2">Feel confused and overwhelmed</div>
+                    <div class="option" data-value="3">Feel curious and open</div>
+                    <div class="option" data-value="4">Feel inspired and ready to explore</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-6">
+                <div class="question-text">What is your relationship with your body and physical health?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Often feel disconnected from my body</div>
+                    <div class="option" data-value="2">Feel physically tired or unwell often</div>
+                    <div class="option" data-value="3">Maintain a healthy balance</div>
+                    <div class="option" data-value="4">Feel energized and in harmony with my body</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-7">
+                <div class="question-text">How do you typically approach creative projects?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel blocked and unable to start</div>
+                    <div class="option" data-value="2">Feel uncertain about my creative abilities</div>
+                    <div class="option" data-value="3">Feel inspired and motivated</div>
+                    <div class="option" data-value="4">Feel completely in flow with my creativity</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-8">
+                <div class="question-text">When you're in a group, you usually:</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel like you don't belong</div>
+                    <div class="option" data-value="2">Feel like you're always trying to fit in</div>
+                    <div class="option" data-value="3">Feel comfortable and accepted</div>
+                    <div class="option" data-value="4">Feel like you're contributing your authentic self</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-9">
+                <div class="question-text">How do you handle criticism or feedback?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel devastated and question myself</div>
+                    <div class="option" data-value="2">Feel defensive and hurt</div>
+                    <div class="option" data-value="3">Feel open to learning and growth</div>
+                    <div class="option" data-value="4">Feel confident and able to process it constructively</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-10">
+                <div class="question-text">What is your relationship with your inner voice and intuition?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Often ignore my inner voice</div>
+                    <div class="option" data-value="2">Feel confused by my intuition</div>
+                    <div class="option" data-value="3">Listen to my intuition but sometimes doubt it</div>
+                    <div class="option" data-value="4">Trust my intuition completely</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-11">
+                <div class="question-text">How do you typically handle financial decisions?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel anxious and uncertain about money</div>
+                    <div class="option" data-value="2">Feel like I don't have control over my finances</div>
+                    <div class="option" data-value="3">Make decisions with confidence</div>
+                    <div class="option" data-value="4">Feel abundant and make wise financial choices</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-12">
+                <div class="question-text">When you're feeling overwhelmed, what do you do?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel completely lost and unable to cope</div>
+                    <div class="option" data-value="2">Feel like I'm drowning in emotions</div>
+                    <div class="option" data-value="3">Take a moment to center myself</div>
+                    <div class="option" data-value="4">Feel calm and able to process it</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-13">
+                <div class="question-text">How do you express your emotions?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Often suppress or hide my emotions</div>
+                    <div class="option" data-value="2">Feel like I'm not expressing myself authentically</div>
+                    <div class="option" data-value="3">Express emotions openly but not always healthily</div>
+                    <div class="option" data-value="4">Express emotions clearly and compassionately</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-14">
+                <div class="question-text">How do you approach challenges in life?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel defeated and give up easily</div>
+                    <div class="option" data-value="2">Feel uncertain about my abilities to handle them</div>
+                    <div class="option" data-value="3">Feel confident in my ability to overcome them</div>
+                    <div class="option" data-value="4">Feel empowered and capable of growth</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-15">
+                <div class="question-text">What is your relationship with your dreams and imagination?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Often forget my dreams</div>
+                    <div class="option" data-value="2">Feel disconnected from my imagination</div>
+                    <div class="option" data-value="3">Sometimes use my imagination creatively</div>
+                    <div class="option" data-value="4">Feel inspired by my dreams and imagination</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-16">
+                <div class="question-text">How do you typically handle conflict?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Avoid conflict at all costs</div>
+                    <div class="option" data-value="2">Feel overwhelmed by conflict</div>
+                    <div class="option" data-value="3">Address conflict directly but not always effectively</div>
+                    <div class="option" data-value="4">Handle conflict with grace and understanding</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-17">
+                <div class="question-text">How do you typically approach new experiences?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel hesitant and afraid to try new things</div>
+                    <div class="option" data-value="2">Feel uncertain about stepping out of my comfort zone</div>
+                    <div class="option" data-value="3">Feel curious and open to new experiences</div>
+                    <div class="option" data-value="4">Feel excited and ready to explore</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-18">
+                <div class="question-text">How do you typically handle your personal boundaries?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Often feel like I'm not respecting my own boundaries</div>
+                    <div class="option" data-value="2">Feel like I'm not setting clear boundaries</div>
+                    <div class="option" data-value="3">Set boundaries but sometimes struggle to maintain them</div>
+                    <div class="option" data-value="4">Set and maintain healthy boundaries with ease</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-19">
+                <div class="question-text">How do you typically handle success and recognition?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel uncomfortable with praise or success</div>
+                    <div class="option" data-value="2">Feel like I'm not worthy of recognition</div>
+                    <div class="option" data-value="3">Feel proud but sometimes insecure</div>
+                    <div class="option" data-value="4">Feel grateful and humble about achievements</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-next">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question-20">
+                <div class="question-text">How do you typically approach spiritual or philosophical questions?</div>
+                <div class="options">
+                    <div class="option" data-value="1">Feel confused and uncertain about spiritual matters</div>
+                    <div class="option" data-value="2">Feel disconnected from spiritual concepts</div>
+                    <div class="option" data-value="3">Explore spiritual questions with curiosity</div>
+                    <div class="option" data-value="4">Feel deeply connected to spiritual truths</div>
+                </div>
+                <div class="navigation">
+                    <button class="btn btn-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="btn btn-submit">Submit Results</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-container" id="results">
+            <div class="results-header">
+                <h2>Your Chakra Balance Assessment</h2>
+                <div class="balance-score">78%</div>
+                <p>Your energy is mostly balanced and aligned with your highest potential.</p>
+            </div>
+            
+            <div class="chakra-balance">
+                <div class="chakra-balance-item">
+                    <h3>Root Chakra</h3>
+                    <div class="score">85%</div>
+                    <div class="status balanced">Balanced</div>
+                </div>
+                <div class="chakra-balance-item">
+                    <h3>Sacral Chakra</h3>
+                    <div class="score">70%</div>
+                    <div class="status imbalanced">Imbalanced</div>
+                </div>
+                <div class="chakra-balance-item">
+                    <h3>Solar Plexus</h3>
+                    <div class="score">90%</div>
+                    <div class="status balanced">Balanced</div>
+                </div>
+                <div class="chakra-balance-item">
+                    <h3>Heart Chakra</h3>
+                    <div class="score">82%</div>
+                    <div class="status balanced">Balanced</div>
+                </div>
+                <div class="chakra-balance-item">
+                    <h3>Throat Chakra</h3>
+                    <div class="score">75%</div>
+                    <div class="status imbalanced">Imbalanced</div>
+                </div>
+                <div class="chakra-balance-item">
+                    <h3>Third Eye</h3>
+                    <div class="score">88%</div>
+                    <div class="status balanced">Balanced</div>
+                </div>
+                <div class="chakra-balance-item">
+                    <h3>Crown Chakra</h3>
+                    <div class="score">92%</div>
+                    <div class="status balanced">Balanced</div>
+                </div>
+            </div>
+            
+            <div class="predictions">
+                <h2>Personalized Insights & Recommendations</h2>
+                
+                <div class="prediction-item">
+                    <div class="prediction-title"><i class="fas fa-heart"></i> Heart Chakra Insights</div>
+                    <div class="prediction-content">
+                        Your heart chakra shows a strong balance, indicating you have a healthy capacity for love and compassion. However, you may sometimes struggle with setting boundaries in relationships. Consider practicing self-love as a foundation for healthy connections with others. Your ability to connect emotionally with others is a gift that can be further enhanced by expressing your feelings more openly.
+                    </div>
+                </div>
+                
+                <div class="prediction-item">
+                    <div class="prediction-title"><i class="fas fa-fire"></i> Sacral Chakra Insights</div>
+                    <div class="prediction-content">
+                        Your sacral chakra shows signs of imbalance, suggesting you may be experiencing challenges with creativity, sexuality, or emotional expression. This could manifest as feeling disconnected from your creative potential or having difficulty expressing your feelings. Consider incorporating activities that stimulate your creativity, such as art, music, or dance, to restore balance. Journaling about your emotions can also be beneficial.
+                    </div>
+                </div>
+                
+                <div class="prediction-item">
+                    <div class="prediction-title"><i class="fas fa-microphone"></i> Throat Chakra Insights</div>
+                    <div class="prediction-content">
+                        Your throat chakra is slightly imbalanced, indicating you may have challenges with self-expression or communication. You might find it difficult to articulate your thoughts clearly or feel hesitant to speak up in important situations. Practicing daily verbal affirmations and engaging in activities that boost your confidence in speaking can help restore harmony. Consider taking a public speaking course or joining a supportive group to practice expressing yourself.
+                    </div>
+                </div>
+                
+                <div class="prediction-item">
+                    <div class="prediction-title"><i class="fas fa-leaf"></i> Root Chakra Insights</div>
+                    <div class="prediction-content">
+                        Your root chakra is well-balanced, providing a strong foundation for your life. This indicates you have good grounding, security, and stability in your daily life. To maintain this balance, continue engaging in practices that connect you to the earth, such as gardening, walking barefoot, or spending time in nature. This foundation supports your ability to handle life's challenges with resilience.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-controls">
+                <button class="admin-btn" id="show-analytics">View Analytics</button>
+                <button class="admin-btn" id="reset-quiz">Take Quiz Again</button>
+            </div>
+        </div>
+        
+        <div class="analytics-container" id="analytics">
+            <div class="analytics-header">
+                <h2>Comprehensive Analytics Dashboard</h2>
+                <p>Detailed insights into your chakra assessment patterns and trends</p>
+            </div>
+            
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>Chakra Balance Distribution</h3>
+                    <div class="chart-container">
+                        <div class="chart-bar" style="height: 90%; left: 5%;"></div>
+                        <div class="chart-bar" style="height: 70%; left: 17%;"></div>
+                        <div class="chart-bar" style="height: 95%; left: 29%;"></div>
+                        <div class="chart-bar" style="height: 85%; left: 41%;"></div>
+                        <div class="chart-bar" style="height: 75%; left: 53%;"></div>
+                        <div class="chart-bar" style="height: 88%; left: 65%;"></div>
+                        <div class="chart-bar" style="height: 92%; left: 77%;"></div>
+                        <div class="chart-label">Root</div>
+                        <div class="chart-label">Sacral</div>
+                        <div class="chart-label">Solar</div>
+                        <div class="chart-label">Heart</div>
+                        <div class="chart-label">Throat</div>
+                        <div class="chart-label">Third Eye</div>
+                        <div class="chart-label">Crown</div>
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Response Patterns</h3>
+                    <div class="chart-container">
+                        <div class="chart-bar" style="height: 60%; left: 5%;"></div>
+                        <div class="chart-bar" style="height: 25%; left: 17%;"></div>
+                        <div class="chart-bar" style="height: 10%; left: 29%;"></div>
+                        <div class="chart-bar" style="height: 5%; left: 41%;"></div>
+                        <div class="chart-bar" style="height: 0%; left: 53%;"></div>
+                        <div class="chart-bar" style="height: 0%; left: 65%;"></div>
+                        <div class="chart-bar" style="height: 0%; left: 77%;"></div>
+                        <div class="chart-label">Rarely</div>
+                        <div class="chart-label">Sometimes</div>
+                        <div class="chart-label">Often</div>
+                        <div class="chart-label">Always</div>
+                        <div class="chart-label">N/A</div>
+                        <div class="chart-label">N/A</div>
+                        <div class="chart-label">N/A</div>
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Emotional Trends</h3>
+                    <div class="chart-container">
+                        <div class="chart-bar" style="height: 75%; left: 5%;"></div>
+                        <div class="chart-bar" style="height: 65%; left: 17%;"></div>
+                        <div class="chart-bar" style="height: 55%; left: 29%;"></div>
+                        <div class="chart-bar" style="height: 40%; left: 41%;"></div>
+                        <div class="chart-bar" style="height: 30%; left: 53%;"></div>
+                        <div class="chart-bar" style="height: 20%; left: 65%;"></div>
+                        <div class="chart-bar" style="height: 15%; left: 77%;"></div>
+                        <div class="chart-label">Grounded</div>
+                        <div class="chart-label">Secure</div>
+                        <div class="chart-label">Confident</div>
+                        <div class="chart-label">Connected</div>
+                        <div class="chart-label">Expressive</div>
+                        <div class="chart-label">Intuitive</div>
+                        <div class="chart-label">Spiritual</div>
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>Personalized Recommendations</h3>
+                    <ul style="padding-left: 20px; margin-top: 20px;">
+                        <li style="margin-bottom: 15px;">Practice grounding exercises daily for 10 minutes</li>
+                        <li style="margin-bottom: 15px;">Engage in creative activities 3 times per week</li>
+                        <li style="margin-bottom: 15px;">Try journaling for 15 minutes before bed</li>
+                        <li style="margin-bottom: 15px;">Practice affirmations for communication</li>
+                        <li style="margin-bottom: 15px;">Meditate for 20 minutes daily</li>
+                        <li style="margin-bottom: 15px;">Spend time in nature weekly</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="admin-controls">
+                <button class="admin-btn active" id="show-results">View Results</button>
+                <button class="admin-btn" id="export-data">Export Data</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Chakra Balance Analyzer &copy; 2026 - AstroSanhita.Com | Made with love by Sankar Bhattacharjee</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quiz functionality
+            const questions = document.querySelectorAll('.question-container');
+            const options = document.querySelectorAll('.option');
+            const nextButtons = document.querySelectorAll('.btn-next');
+            const prevButtons = document.querySelectorAll('.btn-prev');
+            const submitButton = document.querySelector('.btn-submit');
+            const progress = document.getElementById('progress');
+            const questionNumber = document.getElementById('question-number');
+            const resultsContainer = document.getElementById('results');
+            const analyticsContainer = document.getElementById('analytics');
+            const showAnalyticsBtn = document.getElementById('show-analytics');
+            const showResultsBtn = document.getElementById('show-results');
+            const resetQuizBtn = document.getElementById('reset-quiz');
+            
+            let currentQuestion = 0;
+            let answers = new Array(20).fill(0);
+            
+            // Initialize quiz
+            updateProgress();
+            
+            // Option selection
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from siblings
+                    this.parentElement.querySelectorAll('.option').forEach(sibling => {
+                        sibling.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Save answer
+                    const questionIndex = this.closest('.question-container').id.replace('question-', '') - 1;
+                    answers[questionIndex] = parseInt(this.getAttribute('data-value'));
+                });
+            });
+            
+            // Navigation buttons
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentQuestion < questions.length - 1) {
+                        questions[currentQuestion].classList.remove('active');
+                        currentQuestion++;
+                        questions[currentQuestion].classList.add('active');
+                        updateProgress();
+                    }
+                });
+            });
+            
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentQuestion > 0) {
+                        questions[currentQuestion].classList.remove('active');
+                        currentQuestion--;
+                        questions[currentQuestion].classList.add('active');
+                        updateProgress();
+                    }
+                });
+            });
+            
+            // Submit button
+            submitButton.addEventListener('click', function() {
+                // Show results
+                document.querySelector('.quiz-container').style.display = 'none';
+                resultsContainer.style.display = 'block';
+                
+                // Animate score
+                const scoreElement = document.querySelector('.balance-score');
+                let score = 0;
+                const interval = setInterval(() => {
+                    score += 1;
+                    scoreElement.textContent = score + '%';
+                    if (score >= 78) {
+                        clearInterval(interval);
+                    }
+                }, 30);
+            });
+            
+            // Analytics toggle
+            showAnalyticsBtn.addEventListener('click', function() {
+                resultsContainer.style.display = 'none';
+                analyticsContainer.style.display = 'block';
+                this.classList.add('active');
+                showResultsBtn.classList.remove('active');
+            });
+            
+            showResultsBtn.addEventListener('click', function() {
+                analyticsContainer.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                this.classList.add('active');
+                showAnalyticsBtn.classList.remove('active');
+            });
+            
+            // Reset quiz
+            resetQuizBtn.addEventListener('click', function() {
+                // Reset answers
+                answers = new Array(20).fill(0);
+                
+                // Reset UI
+                questions.forEach(question => {
+                    question.classList.remove('active');
+                });
+                
+                questions[0].classList.add('active');
+                currentQuestion = 0;
+                
+                // Reset selections
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                // Show quiz
+                resultsContainer.style.display = 'none';
+                analyticsContainer.style.display = 'none';
+                document.querySelector('.quiz-container').style.display = 'block';
+                
+                updateProgress();
+            });
+            
+            // Update progress
+            function updateProgress() {
+                const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+                progress.style.width = progressPercent + '%';
+                questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            }
+            
+            // Initialize first question
+            questions[0].classList.add('active');
+        });
+    </script>
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
